@@ -1,0 +1,32 @@
+const addToCartModel = require("../../models/cartProduct")
+
+const addToCartViewProduct = async(req,res)=>{
+    try{
+        const currentUser = req.userId
+
+        const allProduct = await addToCartModel.find({
+            userId : currentUser
+        }).populate({
+            path: "productId",
+            model: "product"
+        })
+
+        // Filtrer les produits qui ont été supprimés (productId null)
+        const validProducts = allProduct.filter(item => item.productId !== null && item.productId !== undefined)
+
+        res.json({
+            data : validProducts,
+            success : true,
+            error : false
+        })
+
+    }catch(err){
+        res.json({
+            message : err.message || err,
+            error : true,
+            success : false
+        })
+    }
+}
+
+module.exports =  addToCartViewProduct

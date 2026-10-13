@@ -3,6 +3,9 @@ const productModel = require("../../models/productModel")
 const getProductController = async(req,res)=>{
     try{
         const allProduct = await productModel.find().sort({ createdAt : -1 })
+console.log("[PRODUCTS] Base :", productModel.db.name);
+console.log("[PRODUCTS] Collection :", productModel.collection.name);
+console.log("[PRODUCTS] Nombre trouvé :", allProduct.length);
 
         res.json({
             message : "All Product",

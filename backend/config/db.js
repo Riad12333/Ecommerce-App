@@ -13,7 +13,12 @@ async function connectDB(){
             socketTimeoutMS: 20000,
         })
 
-        console.log("[DB] Connecté à MongoDB")
+        console.log("[DB] Connecté à MongoDB");
+console.log("[DB] Base utilisée :", mongoose.connection.name);
+console.log(
+  "[DB] Collection produit :",
+  mongoose.connection.collection("products").collectionName
+);
     }catch(err){
         console.error("[DB] Échec de connexion MongoDB:", err?.message || err)
         throw err
